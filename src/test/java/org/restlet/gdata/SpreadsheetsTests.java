@@ -81,4 +81,15 @@ public class SpreadsheetsTests {
         feed.insert(new CellEntry(1, 2, "nom"));
         feed.insert(new CellEntry(1, 3, "montant"));
     }
+
+    @Test
+    public void addData() throws Exception {
+        WorksheetEntry ardoise = getArdoise();
+        ListFeed feed = service.getFeed(ardoise.getListFeedUrl(), ListFeed.class);
+        ListEntry row = new ListEntry();
+        row.getCustomElements().setValueLocal("id", "1");
+        row.getCustomElements().setValueLocal("nom", "manu");
+        row.getCustomElements().setValueLocal("montant", "2,5");
+        feed.insert(row);
+    }
 }
