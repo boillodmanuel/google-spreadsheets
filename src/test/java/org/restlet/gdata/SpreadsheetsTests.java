@@ -61,10 +61,24 @@ public class SpreadsheetsTests {
 
     @Test
     public void renameWorksheet() throws Exception {
-        SpreadsheetFeed feed = service.getFeed(urls.getSpreadsheetsFeedUrl(), SpreadsheetFeed.class);
-        SpreadsheetEntry spreadsheetEntry = feed.getEntries().get(0);
-        WorksheetEntry defaultWorksheet =  spreadsheetEntry.getDefaultWorksheet();
+        WorksheetEntry defaultWorksheet = getArdoise();
         defaultWorksheet.setTitle(new PlainTextConstruct("operation"));
         defaultWorksheet.update();
+    }
+
+    private WorksheetEntry getArdoise() throws java.io.IOException, com.google.gdata.util.ServiceException {
+        SpreadsheetFeed feed = service.getFeed(urls.getSpreadsheetsFeedUrl(), SpreadsheetFeed.class);
+        SpreadsheetEntry spreadsheetEntry = feed.getEntries().get(0);
+
+        return spreadsheetEntry.getDefaultWorksheet();
+    }
+
+    @Test
+    public void addHeader() throws Exception {
+        WorksheetEntry ardoise = getArdoise();
+        CellFeed feed = service.getFeed(ardoise.getCellFeedUrl(), CellFeed.class);
+        feed.insert(new CellEntry(1, 1, "id"));
+        feed.insert(new CellEntry(1, 2, "nom"));
+        feed.insert(new CellEntry(1, 3, "montant"));
     }
 }
