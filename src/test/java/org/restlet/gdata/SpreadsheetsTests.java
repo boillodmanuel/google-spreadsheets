@@ -43,4 +43,12 @@ public class SpreadsheetsTests {
         urls = FeedURLFactory.getDefault();
         docsFeedUrls = new URL("https://docs.google.com/feeds/default/private/full/");
     }
+
+    @Test
+    public void listSpreadsheets() throws Exception {
+        SpreadsheetFeed feed = service.getFeed(urls.getSpreadsheetsFeedUrl(), SpreadsheetFeed.class);
+        for (SpreadsheetEntry spreadsheetEntry : feed.getEntries()) {
+            System.out.println(spreadsheetEntry.getTitle().getPlainText());
+        }
+    }
 }
