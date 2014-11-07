@@ -51,4 +51,11 @@ public class SpreadsheetsTests {
             System.out.println(spreadsheetEntry.getTitle().getPlainText());
         }
     }
+
+    @Test
+    public void createSpreadsheets() throws Exception {
+        com.google.gdata.data.docs.SpreadsheetEntry entry = new com.google.gdata.data.docs.SpreadsheetEntry();
+        entry.setTitle(new PlainTextConstruct("Devfest"));
+        docsService.insert(docsFeedUrls, entry);
+    }
 }
