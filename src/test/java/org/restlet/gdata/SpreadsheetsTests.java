@@ -58,4 +58,13 @@ public class SpreadsheetsTests {
         entry.setTitle(new PlainTextConstruct("Devfest"));
         docsService.insert(docsFeedUrls, entry);
     }
+
+    @Test
+    public void renameWorksheet() throws Exception {
+        SpreadsheetFeed feed = service.getFeed(urls.getSpreadsheetsFeedUrl(), SpreadsheetFeed.class);
+        SpreadsheetEntry spreadsheetEntry = feed.getEntries().get(0);
+        WorksheetEntry defaultWorksheet =  spreadsheetEntry.getDefaultWorksheet();
+        defaultWorksheet.setTitle(new PlainTextConstruct("operation"));
+        defaultWorksheet.update();
+    }
 }
